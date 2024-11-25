@@ -11,7 +11,7 @@ const Register = () => {
 
   const handleRegister = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/register', formData);
+      const response = await axios.post('http://3.107.178.30/api/auth/register', formData);
       alert(response.data.message);
     } catch (error) {
       alert(error.response?.data?.error || 'An error occurred. Please try again.');

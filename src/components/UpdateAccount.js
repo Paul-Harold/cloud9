@@ -12,7 +12,7 @@ const UpdateAccount = () => {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.put(
-        'http://localhost:5000/api/auth/update',
+        'http://3.107.178.30/api/auth/update',
         formData,
         { headers: { Authorization: `Bearer ${token}` } }
       );
