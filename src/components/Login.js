@@ -7,7 +7,7 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', formData);
+      const response = await axios.post('http://3.107.178.30/api/auth/login', formData);
       alert(response.data.message);
       localStorage.setItem('token', response.data.token); // Save token for authentication
     } catch (error) {

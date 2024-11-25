@@ -11,7 +11,7 @@ const UploadFile = () => {
       const formData = new FormData();
       formData.append('file', file);
 
-      const response = await axios.post('http://localhost:5000/api/files/upload', formData, {
+      const response = await axios.post('http://3.107.178.30/api/files/upload', formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data'
