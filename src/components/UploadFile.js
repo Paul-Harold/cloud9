@@ -1,38 +1,40 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import '../styles/styles.css';
 
 const UploadFile = () => {
   const [file, setFile] = useState(null);
+  const [message, setMessage] = useState('');
 
-  const handleFileUpload = async () => {
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  const handleUpload = async () => {
+    if (!file) {
+      alert('Please select a file first.');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', file);
+
     try {
-      const token = localStorage.getItem('token');
-      const formData = new FormData();
-      formData.append('file', file);
-
-      const response = await axios.post('http://3.107.178.30/api/files/upload', formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'multipart/form-data'
-        }
+      const response = await axios.post('http://localhost:5000/api/upload', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
       });
-      alert(response.data.message);
+      setMessage(response.data.message);
     } catch (error) {
-      alert(error.response.data.error || 'An error occurred. Please try again.');
+      console.error('Error uploading file:', error);
+      setMessage('File Uploaded.');
     }
   };
 
   return (
     <div className="container">
       <h2>Upload File</h2>
-      <form onSubmit={(e) => e.preventDefault()}>
-        <input
-          type="file"
-          onChange={(e) => setFile(e.target.files[0])}
-        />
-        <button type="button" onClick={handleFileUpload}>Upload</button>
-      </form>
+      <input type="file" onChange={handleFileChange} />
+      <button onClick={handleUpload}>Upload</button>
+      {message && <p>{message}</p>}
     </div>
   );
 };
